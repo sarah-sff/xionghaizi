@@ -1,5 +1,8 @@
 //logs.js
 const util = require('../../utils/util.js')
+const timeout= 14400000;
+const behavior_key = 'behavior';
+const time_out_behavior_key = 'behavior_time_out';
 
 Page({
   data: {
@@ -24,7 +27,10 @@ Page({
     var index = e.mark.index;
     var behaviors = this.data.behaviors;
     console.log("submit success!",behaviors[index]);
-    wx.setStorageSync('behaviors', this.data.behaviors);
+    var timestamp = Date.parse(new Date());
+    var expiration = timestamp + timeout ;
+    wx.setStorageSync(time_out_behavior_key, expiration);
+    wx.setStorageSync(behavior_key, this.data.behaviors);
     wx.showToast({
       title: this.data.things[behaviors[index].thing-1] + '表现' + this.data.card_class[behaviors[index].score].desc,
       icon: 'success',
@@ -32,11 +38,19 @@ Page({
     })
   },
   onLoad: function () {
+    var expire_time = wx.getStorageSync(time_out_behavior_key);
+    if(expire_time && expire_time){
+      var timenow = Date.parse(new Date());
+      if(timenow > expire_time){
+        wx.removeStorageSync(behavior_key);
+        wx.removeStorageSync(time_out_behavior_key);
+      }
+    }
     this.setData({
       logs: (wx.getStorageSync('logs') || []).map(log => {
         return util.formatTime(new Date(log))
       }),
-      behaviors: wx.getStorageSync('behaviors') || [{ thing: 1, score: 0 }, { thing: 2, score: 0 }, { thing: 3, score: 0 }, { thing: 4, score: 0 }, { thing: 5, score: 0 }],
+      behaviors: wx.getStorageSync(behavior_key) || [{ thing: 1, score: 0 }, { thing: 2, score: 0 }, { thing: 3, score: 0 }, { thing: 4, score: 0 }, { thing: 5, score: 0 }],
       things: ['早餐', '中餐', '晚餐', '睡觉', '看书'],
       card_class: [{ score_class: 'undo', icon_type: 'waiting', desc: '未做' }, { score_class: 'ordinary', icon_type: 'info', desc: '一般' }, { score_class: 'good', icon_type: 'success', desc: '很好' }, { score_class: 'unsatisfied', icon_type: 'warn', desc: '差' }]
     })
