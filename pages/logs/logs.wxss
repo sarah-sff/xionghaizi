@@ -18,18 +18,18 @@
 }
 
 .good{
-  background-color: #0cd830;
+  background-color: #e72a11;
   color: #fff;
 }
 
 .ordinary{
-  background-color: #c1f7b7da;
+  background-color: #f57d38;
   color: #fff;
 }
 
 
 .unsatisfied{
-  background-color: #f57003;
+  background-color: #15f54d;
   color: #fff;
 }
 
