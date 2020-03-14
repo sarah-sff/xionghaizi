@@ -1,0 +1,45 @@
+.behavior-item {
+  width: 100px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  margin-bottom: 10px
+}
+.demo-item{
+  width: 60px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  margin: 5px 5px 15px 5px
+}
+.undo{
+  background-color: rgb(144, 151, 145);
+  color: #fff;
+}
+
+.good{
+  background-color: #0cd830;
+  color: #fff;
+}
+
+.ordinary{
+  background-color: #d8d30c;
+  color: #fff;
+}
+
+
+.unsatisfied{
+  background-color: #ec1b1b;
+  color: #fff;
+}
+
+.container{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap
+}
+.card_demo{
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  display: flex;
+}
