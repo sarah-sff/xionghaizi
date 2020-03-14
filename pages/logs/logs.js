@@ -3,13 +3,16 @@ const util = require('../../utils/util.js')
 const timeout= 14400000;
 const behavior_key = 'behavior';
 const time_out_behavior_key = 'behavior_time_out';
+const things = ['早餐', '中餐', '晚餐', '睡觉', '看书'];
+const card_class = [{ score_class: 'undo', icon_type: 'waiting', desc: '未做' }, { score_class: 'ordinary', icon_type: 'info', desc: '一般' }, { score_class: 'good', icon_type: 'success', desc: '很好' }, { score_class: 'unsatisfied', icon_type: 'warn', desc: '差' }];
+const default_behavior = [{ thing: 1, score: 0 }, { thing: 2, score: 0 }, { thing: 3, score: 0 }, { thing: 4, score: 0 }, { thing: 5, score: 0 }];
 
 Page({
   data: {
     logs: [],
-    behaviors: [{ thing: 1, score: 0 }, { thing: 2, score: 0 }, { thing: 3, score: 0 }, { thing: 4, score: 0 }, { thing: 5, score: 0 }],
-    things: ['早餐', '中餐', '晚餐', '睡觉', '看书'],
-    card_class: [{ score_class: 'undo', icon_type: 'waiting', desc: '未做' }, { score_class: 'ordinary', icon_type: 'info', desc: '一般' }, { score_class: 'good', icon_type: 'success', desc: '很好' }, { score_class: 'unsatisfied', icon_type: 'warn', desc: '差' }]
+    behaviors: [],
+    things: [],
+    card_class: []
   },
   //事件处理函数
   bindThingTap: function (e) {
@@ -50,9 +53,9 @@ Page({
       logs: (wx.getStorageSync('logs') || []).map(log => {
         return util.formatTime(new Date(log))
       }),
-      behaviors: wx.getStorageSync(behavior_key) || [{ thing: 1, score: 0 }, { thing: 2, score: 0 }, { thing: 3, score: 0 }, { thing: 4, score: 0 }, { thing: 5, score: 0 }],
-      things: ['早餐', '中餐', '晚餐', '睡觉', '看书'],
-      card_class: [{ score_class: 'undo', icon_type: 'waiting', desc: '未做' }, { score_class: 'ordinary', icon_type: 'info', desc: '一般' }, { score_class: 'good', icon_type: 'success', desc: '很好' }, { score_class: 'unsatisfied', icon_type: 'warn', desc: '差' }]
+      behaviors: wx.getStorageSync(behavior_key) || default_behavior,
+      things : things,
+      card_class: card_class
     })
   }
 })
