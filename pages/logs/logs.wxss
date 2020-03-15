@@ -23,7 +23,7 @@
 }
 
 .ordinary{
-  background-color: #f57d38;
+  background-color: orange;
   color: #fff;
 }
 
@@ -45,17 +45,13 @@
   flex-wrap: wrap;
   display: flex;
 }
-/*http://www.wxapp-union.com/article-4432-1.html*/
 .animationSlow {
-   width: 100rpx;
-  height: 100rpx;
-  background-color: orange;
   animation-name: myfirst; /*动画的名称 */
-  animation-duration: 2000ms; /*动画从开始到结束的时间*/
+  animation-duration: 1000ms; /*动画从开始到结束的时间*/
   animation-timing-function: linear; /*动画执行快慢的参数*/
   animation-iteration-count: infinite; /*动画执行多少次的参数*//*以下是兼容ios所需，参数意义与上相同*/
   -webkit-animation-name: myfirst;
-  -webkit-animation-duration: 2000ms;
+  -webkit-animation-duration: 1000ms;
   -webkit-animation-timing-function: linear;
   -webkit-animation-iteration-count: infinite;
 }

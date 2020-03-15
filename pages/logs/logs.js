@@ -12,8 +12,7 @@ Page({
     logs: [],
     behaviors: [],
     things: [],
-    card_class: [],
-    animations:[]
+    card_class: []
   },
   //事件处理函数
   bindThingTap: function (e) {
@@ -24,12 +23,15 @@ Page({
       score = -1;
     }
     behaviors[index].score = score + 1;
+    behaviors[index].animation = 'running';
     console.log(behaviors[index].score);
     this.setData({ behaviors : behaviors});
 
-    this.data.animations[index].rotate(Math.random() * 720 - 360).step();
-    this.data.animations[index].export() 
-    // this.setData({ animations: this.data.animations });
+    var that =  this;
+    setTimeout(function(e){
+      that.data.behaviors[index].animation = 'paused';
+      that.setData({ behaviors: that.data.behaviors });
+    },2000)
   },
   submitBevavior:function(e){
     var index = e.mark.index;
@@ -62,15 +64,6 @@ Page({
       things : things,
       card_class: card_class
     })
-    debugger;
-    var i = 0;
-    var animations = [];
-    for (var p in this.data.behaviors) {
-      animations.push(wx.createAnimation());
-      i++;
-    }
-    this.setData({ animations: animations});
-    debugger;
   },
   onShareAppMessage: function (res) {
     // return eventHandler接收到的分享参数
