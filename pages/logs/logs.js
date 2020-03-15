@@ -3,16 +3,17 @@ const util = require('../../utils/util.js')
 const timeout= 14400000;
 const behavior_key = 'behavior';
 const time_out_behavior_key = 'behavior_time_out';
-const things = ['早餐', '中餐', '晚餐', '睡觉', '看书'];
+const things = ['早餐', '中餐', '晚餐', '睡觉', '看书', '乐高', '画画', '跑步'];
 const card_class = [{ score_class: 'undo', icon_type: 'waiting', desc: '未做' }, { score_class: 'ordinary', icon_type: 'info', desc: '一般' }, { score_class: 'good', icon_type: 'success', desc: '很好' }, { score_class: 'unsatisfied', icon_type: 'warn', desc: '差' }];
-const default_behavior = [{ thing: 1, score: 0 }, { thing: 2, score: 0 }, { thing: 3, score: 0 }, { thing: 4, score: 0 }, { thing: 5, score: 0 }];
+const default_behavior = [{ thing: 1, score: 0 }, { thing: 2, score: 0 }, { thing: 3, score: 0 }, { thing: 4, score: 0 }, { thing: 5, score: 0 }, { thing: 6, score: 0 }, { thing: 7, score: 0 }, { thing: 8, score: 0 }, { thing: 1, score: 0 }, { thing: 2, score: 0 }, { thing: 3, score: 0 }, { thing: 4, score: 0 }, { thing: 5, score: 0 }, { thing: 6, score: 0 }, { thing: 7, score: 0 }, { thing: 8, score: 0 }];
 
 Page({
   data: {
     logs: [],
     behaviors: [],
     things: [],
-    card_class: []
+    card_class: [],
+    animations:[]
   },
   //事件处理函数
   bindThingTap: function (e) {
@@ -25,6 +26,10 @@ Page({
     behaviors[index].score = score + 1;
     console.log(behaviors[index].score);
     this.setData({ behaviors : behaviors});
+
+    this.data.animations[index].rotate(Math.random() * 720 - 360).step();
+    this.data.animations[index].export() 
+    // this.setData({ animations: this.data.animations });
   },
   submitBevavior:function(e){
     var index = e.mark.index;
@@ -57,5 +62,21 @@ Page({
       things : things,
       card_class: card_class
     })
+    debugger;
+    var i = 0;
+    var animations = [];
+    for (var p in this.data.behaviors) {
+      animations.push(wx.createAnimation());
+      i++;
+    }
+    this.setData({ animations: animations});
+    debugger;
+  },
+  onShareAppMessage: function (res) {
+    // return eventHandler接收到的分享参数
+    return {
+      title: '快来看看我们家小可爱吧',
+      path: 'pages/index/index'
+    };
   }
 })

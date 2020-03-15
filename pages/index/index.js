@@ -16,6 +16,26 @@ Page({
       url: '../logs/logs'
     })
   },
+  onShareAppMessage: function (res) {
+    // return eventHandler接收到的分享参数
+    return {
+      title: '快来看看我们家小可爱吧',
+      path: 'pages/index/index'
+    };
+  },
+  onShow: function () {
+    this.animation = wx.createAnimation();
+    var that = this;
+    that.animation.rotate(Math.random() * 720 - 360).step();
+    setTimeout(function (e) {
+      console.log(that);
+      that.animation.scale(Math.random() * 2).step();
+      that.setData({ animation: that.animation.export() });
+      wx.navigateTo({
+        url: '../logs/logs'
+      })
+    }, 1000);
+  },
   onLoad: function () {
     this.setData({
       logs: app.globalData.logs
@@ -48,7 +68,6 @@ Page({
     }
   },
   getUserInfo: function(e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,

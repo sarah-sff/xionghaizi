@@ -1,5 +1,12 @@
 //app.js
 App({
+  onShareAppMessage: function (res) {
+    // return eventHandler接收到的分享参数
+    return {
+      title: '自定义转发标题',
+      path: '/page/user?id=123'
+    };
+  },
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
